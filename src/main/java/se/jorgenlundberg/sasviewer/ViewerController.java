@@ -1,7 +1,7 @@
 package se.jorgenlundberg.sasviewer;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -33,7 +33,7 @@ public class ViewerController {
       throws IOException {
 
     SasFileReader sasFileReader = new SasFileReaderImpl(file.getInputStream());
-    if(sasFileReader.getColumns().isEmpty()) {
+    if (sasFileReader.getColumns().isEmpty()) {
       throw new NoSasFileException("Either the file was not a sas7bdat file or it was empty.");
     }
 
@@ -47,15 +47,14 @@ public class ViewerController {
   }
 
   private List<List<String>> getValues(SasFileReader sasFileReader) {
-    List<List<String>> values = new ArrayList<>();
-    for(Object[] row: sasFileReader.readAll()) {
-      List<String> rowValues = new ArrayList<>();
-      for(Object value: row) {
-        rowValues.add(Objects.toString(value, ""));
-      }
-      values.add(rowValues);
-    }
-    return values;
+    return Arrays
+        .stream(sasFileReader.readAll())
+        .sequential()
+        .map(row ->
+            Arrays.stream(row)
+                .map(value -> Objects.toString(value, ""))
+                .collect(Collectors.toList()))
+        .collect(Collectors.toList());
   }
 
   private List<String> getHeaders(SasFileReader sasFileReader) {
