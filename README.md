@@ -6,6 +6,8 @@ Spring Boot: https://spring.io/projects/spring-boot
 
 Parso: https://github.com/epam/parso
 
+Spring Boot: [Uploading Files](https://spring.io/guides/gs/uploading-files/)
+
 I followed this tutorial on how to deploy a spring boot app on AWS Elastic Beanstalk.
 
 https://www.youtube.com/watch?v=EtDSJRdpJM4&feature
