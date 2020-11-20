@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hello Bulma!</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+    <script>
+        function addFileSelected() {
+            const fileInput = document.getElementById('file-input');
+            fileInput.onchange = () => {
+                if(fileInput.files.length > 0) {
+                    document.getElementById('file-form').submit();
+                }
+            }
+        }
+    </script>
+</head>
+<body onload="addFileSelected()">
+<section class="section">
+    <div class="container">
+        <h1 class="title">
+            sas7mbdat file viewer
+        </h1>
+        <div>
+            <div th:if="${message}">
+                <span class="icon has-text-danger">
+                    <i class="fas fa-ban"></i>
+                </span>
+                <span th:text="${message}"></span>
+            </div>
+        </div>
+        <div>
+            <form id="file-form" method="POST" enctype="multipart/form-data" action="/">
+                <div id="file-js" class="file has-name is-fullwidth is-right">
+                    <label class="file-label">
+                        <input id="file-input" class="file-input" type="file" name="file">
+                        <span class="file-cta">
+                            <span class="file-icon">
+                                <i class="fas fa-upload"></i>
+                            </span>
+                            <span class="file-label">
+                                Choose a file…
+                            </span>
+                        </span>
+                        <span id="file-name-value" class="file-name" th:text="${fileName}"></span>
+                    </label>
+                </div>
+            </form>
+        </div>
+        <div class="mt-5">
+            <div class="table-container">
+            <table class="table is-striped is-bordered is-narrow is-hoverable is-fullwidth">
+                <thead>
+                <tr>
+                    <th th:each="header: ${headers}" th:text="${header}">Header</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="row: ${values}">
+                    <td th:each="value: ${row}" th:text="${value}">Value</td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
