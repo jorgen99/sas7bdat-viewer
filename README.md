@@ -1,6 +1,11 @@
 # sas7bdat-viewer
 Quick and dirty app created with Spring Boot and [Parso](https://github.com/epam/parso) to view the content of sas7bdat files.
 
+# Run as a Docker container
+
+    docker build -t sasviewer .
+    docker run -p=8080:8080 sasviewer
+
 # Acknowledgements
 Spring Boot: https://spring.io/projects/spring-boot
 
